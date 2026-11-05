@@ -1,14 +1,10 @@
-<p align="center">
-  <img src="assets/logo.png" alt="Universal representations" width="220">
-</p>
+<img src="assets/logo.png" alt="Universal representations" width="200" align="right">
 
-<h1 align="center">Universal representations</h1>
+# Universal representations
 
-<p align="center">
-  <a href="https://arxiv.org/abs/2605.13675"><img src="https://img.shields.io/badge/NeurIPS-2026-6868A2" alt="NeurIPS 2026"></a>
-  <a href="https://arxiv.org/abs/2605.13675"><img src="https://img.shields.io/badge/arXiv-2605.13675-b31b1b" alt="Paper"></a>
-  <a href="https://github.com/florianmahner/pysrf"><img src="https://img.shields.io/badge/SRF-pysrf-398F8C" alt="SRF · pysrf"></a>
-</p>
+[![NeurIPS 2026](https://img.shields.io/badge/NeurIPS-2026-666699?style=flat&labelColor=454550)](https://arxiv.org/abs/2605.13675)
+[![Paper](https://img.shields.io/badge/arXiv-2605.13675-AA6677?style=flat&labelColor=454550)](https://arxiv.org/abs/2605.13675)
+[![SRF · pysrf](https://img.shields.io/badge/SRF-pysrf-447777?style=flat&labelColor=454550)](https://github.com/florianmahner/pysrf)
 
 Code for [Characterizing Universal Object Representations Across Vision Models](https://arxiv.org/abs/2605.13675), accepted at NeurIPS 2026. We extract nonnegative dimensions from 162 vision models and measure how consistently they recur across models.
 
@@ -16,7 +12,7 @@ Code for [Characterizing Universal Object Representations Across Vision Models](
 
 Please cite our paper if you use this code. Citation metadata are in [CITATION.cff](CITATION.cff), also available through **Cite this repository** on GitHub.
 
-## Built on SRF
+## Getting non-negative embeddings
 
 The factorization is provided by **[pysrf](https://github.com/florianmahner/pysrf)**, our library for **Similarity-based Representation Factorization**. Use it directly to extract nonnegative dimensions from your own similarity matrices:
 
