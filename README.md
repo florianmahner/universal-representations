@@ -1,4 +1,4 @@
-<img src="assets/logo.gif" alt="Universal representations" width="200" align="right">
+<img src="assets/logo.png" alt="Universal representations" width="200" align="right">
 
 # Universal representations
 
