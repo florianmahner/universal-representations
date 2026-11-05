@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper below."
+type: software
+title: Universal representations
+version: 0.1.0
+license: BSD-3-Clause
+repository-code: "https://github.com/florianmahner/universal-representations"
+url: "https://arxiv.org/abs/2605.13675"
+authors:
+  - family-names: Mahner
+    given-names: Florian P.
+preferred-citation:
+  type: conference-paper
+  title: Characterizing Universal Object Representations Across Vision Models
+  authors:
+    - family-names: Mahner
+      given-names: Florian P.
+    - family-names: Roth
+      given-names: Johannes
+    - family-names: Lam
+      given-names: Ka Chun
+    - family-names: Bonner
+      given-names: Michael F.
+    - family-names: Pereira
+      given-names: Francisco
+    - family-names: Hebart
+      given-names: Martin N.
+  collection-title: Advances in Neural Information Processing Systems
+  year: 2026
+  url: "https://arxiv.org/abs/2605.13675"
+  notes: Accepted at NeurIPS 2026.
