@@ -18,7 +18,7 @@ OPTIONAL = {
 
 
 def _module_files():
-    for base in ("snmf", "src", "experiments"):
+    for base in ("src", "experiments"):
         for path in sorted((ROOT / base).rglob("*.py")):
             if "__pycache__" in path.parts or path.name.startswith("test_"):
                 continue

@@ -28,7 +28,7 @@ from experiments.universality.shared.core import (
     null_adjust,
 )
 from src.colors import INDIGO, ROSE, TEAL, soft
-from src.factorization import get_snmf_class
+from src.factorization import get_srf_class
 from src.metrics import explained_variance
 from src.stability import _correlation_matrix, _hungarian_match, factorization_stability
 
@@ -353,7 +353,7 @@ def final_history_value(estimator: object, key: str) -> float:
     return float("nan")
 
 
-def fit_snmf_one(
+def fit_srf_one(
     similarity: np.ndarray,
     feature_shape: tuple[int, int],
     model: str,
@@ -365,9 +365,9 @@ def fit_snmf_one(
     out_dir: Path,
     feature_key: str = "pre_logits",
 ) -> dict[str, object]:
-    SNMF = get_snmf_class()
+    SRF = get_srf_class()
 
-    estimator = SNMF(
+    estimator = SRF(
         rank=cfg.factorization.rank,
         max_outer=cfg.factorization.max_outer,
         max_inner=cfg.factorization.max_inner,
@@ -377,7 +377,7 @@ def fit_snmf_one(
         verbose=0,
     )
 
-    logger.info("%s sigma=%s seed=%d: fitting SNMF", model, sigma_mult, seed)
+    logger.info("%s sigma=%s seed=%d: fitting SRF", model, sigma_mult, seed)
     t0 = time.perf_counter()
     estimator.fit(similarity)
     fit_time = time.perf_counter() - t0
@@ -436,7 +436,7 @@ def factorize(cfg: DictConfig, out: Path, plan: pd.DataFrame) -> None:
                     logger.info("SKIP factorization %s sigma=%s seed=%d", row.model, sigma_mult, seed)
                     metrics = pd.read_json(metrics_path, typ="series").to_dict()
                 else:
-                    metrics = fit_snmf_one(
+                    metrics = fit_srf_one(
                         similarity=similarity,
                         feature_shape=features.shape,
                         model=row.model,

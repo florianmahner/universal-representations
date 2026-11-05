@@ -202,7 +202,7 @@ def main() -> None:
     grid_dir = Path("experiments/universality/notebooks/grid_cache_dimensions")
 
     dimensions = load_dimensions(
-        Path(cfg.data_root) / "ratings" / "dim_ratings_aggregated_qc_attn_catch.csv"
+        Path(cfg.data_root) / "ratings" / "dimension_ratings.csv"
     )
     image_paths, categories = load_image_metadata(
         Path(cfg.data_root) / "meta" / "things22k" / "image_info_22k.csv",

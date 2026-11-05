@@ -15,6 +15,8 @@ pip install -e ".[test]"
 pytest -q
 ```
 
+Installation downloads [pysrf](https://github.com/florianmahner/pysrf) directly from GitHub at a pinned commit. Building its Cython extension requires a C compiler.
+
 Optional dependencies: `.[features]` for feature extraction, `.[analysis]` for semantic-label and AligNet analyses, and `.[reports]` for cluster reports. CLIP and Detectron2 require separate installation.
 
 ## Usage
@@ -36,7 +38,7 @@ Analysis instructions:
 
 ## Data
 
-Metadata and aggregated human ratings are included. Images, model weights, features, embeddings, neural recordings, behavioral triplets, and participant-level ratings are not included.
+Metadata and aggregated human ratings ([dimension_ratings.csv](data/ratings/dimension_ratings.csv)) are included. Images, model weights, features, embeddings, neural recordings, behavioral triplets, and participant-level ratings are not included.
 
 Expected layout under `data_root`:
 
@@ -54,4 +56,4 @@ Feature rows must follow `data/meta/<dataset>/image_info*.csv`. Compute universa
 
 ## License
 
-[BSD-3-Clause](LICENSE). The bundled optimizer in `snmf/` is derived from [pysrf](https://github.com/florianmahner/pysrf). See [third-party notices](THIRD_PARTY.md).
+[BSD-3-Clause](LICENSE). Factorization uses [SRF (pysrf)](https://github.com/florianmahner/pysrf). See [third-party notices](THIRD_PARTY.md).

@@ -583,7 +583,7 @@ def main() -> None:
     out.mkdir(exist_ok=True)
     manifest = run_analysis(
         out,
-        Path(cfg.data_root) / "ratings" / "dim_ratings_aggregated_qc_attn_catch.csv",
+        Path(cfg.data_root) / "ratings" / "dimension_ratings.csv",
         n_bootstrap=N_BOOTSTRAP,
         seed=cfg.seed,
     )

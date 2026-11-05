@@ -4,7 +4,7 @@ RBF similarity kernel per model, symmetric NMF (S ≈ WWᵀ) over a bandwidth ×
 
 | Analysis | Reproduces | Run |
 |---|---|---|
-| [`fit/`](fit/) | SNMF embeddings for all models (Sec. 3.3) | `python -m experiments.factorization.fit.run_grid` |
+| [`fit/`](fit/) | SRF embeddings for all models (Sec. 3.3) | `python -m experiments.factorization.fit.run_grid` |
 | [`bandwidth_selection/`](bandwidth_selection/) | Per-model bandwidth maximizing the harmonic mean of cross-seed stability and explained variance (Appendix, bandwidth selection) | `python -m experiments.factorization.bandwidth_selection.compute_selection`, then `...bandwidth_selection.plot` |
 
 Run them in this order:

@@ -168,7 +168,7 @@ def main() -> None:
 
     df = load(
         out / "category_selectivity.csv",
-        Path(cfg.data_root) / "ratings" / "dim_ratings_aggregated_qc_attn_catch.csv",
+        Path(cfg.data_root) / "ratings" / "dimension_ratings.csv",
     )
     print(f"Merged dimensions: {len(df)}")
     print(df["majority_label"].value_counts().to_string())

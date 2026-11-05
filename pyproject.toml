@@ -9,6 +9,7 @@ license = {file = "LICENSE"}
 description = "Analysis code for universal dimensions in visual representations"
 requires-python = ">=3.10"
 dependencies = [
+    "pysrf @ git+https://github.com/florianmahner/pysrf.git@0fc24ac06c56f76f06968976fc5615343cdf453e",
     "joblib>=1.3",
     "matplotlib>=3.7",
     "numpy>=1.24",
@@ -43,7 +44,7 @@ reports = ["nltk>=3.9"]
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["snmf*", "src*", "experiments*"]
+include = ["src*", "experiments*"]
 
 [tool.pytest.ini_options]
 testpaths = [

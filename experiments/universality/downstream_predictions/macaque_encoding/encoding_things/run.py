@@ -76,7 +76,7 @@ def compute_noise_ceiling(reliab: np.ndarray) -> np.ndarray:
     return np.sqrt(np.clip(reliab, 0, 1))
 
 
-def run_snmf_encoding(
+def run_srf_encoding(
     dataset: ThingsDataset,
     monkey: str,
     rank: int,
@@ -85,13 +85,13 @@ def run_snmf_encoding(
     random_state: int,
     data_root: Path | str = Path("data"),
 ) -> pd.DataFrame:
-    """Run CV encoding from SNMF embeddings for all non-macaque models."""
+    """Run CV encoding from SRF embeddings for all non-macaque models."""
     y, reliab = load_macaque_it(monkey, data_root)
     noise_ceil = compute_noise_ceiling(reliab)
     log.info(f"Noise ceiling: median={np.median(noise_ceil):.3f}")
 
     models = [m for m in dataset.list_component_models() if not m.startswith("macaque")]
-    log.info(f"SNMF encoding: {len(models)} models at rank {rank}")
+    log.info(f"SRF encoding: {len(models)} models at rank {rank}")
 
     def _run_one(model_name: str) -> dict:
         w = dataset.load_components(model_name, rank=rank)
@@ -383,61 +383,61 @@ def plot_model_ranking(
     log.info(f"Saved model_ranking_{monkey}")
 
 
-def plot_raw_vs_snmf(
+def plot_raw_vs_srf(
     df_raw: pd.DataFrame,
-    df_snmf: pd.DataFrame,
+    df_srf: pd.DataFrame,
     monkey: str,
     output_dir: Path,
 ) -> None:
-    """Scatter of SNMF encoding (x) vs raw feature encoding (y) with rank stats."""
-    both = df_snmf[["model", "mean_r"]].rename(columns={"mean_r": "snmf_encoding"}).merge(
+    """Scatter of SRF encoding (x) vs raw feature encoding (y) with rank stats."""
+    both = df_srf[["model", "mean_r"]].rename(columns={"mean_r": "srf_encoding"}).merge(
         df_raw[["model", "mean_r"]].rename(columns={"mean_r": "raw_encoding"}),
         on="model", how="inner",
     )
     if len(both) < 10:
         return
 
-    r, p = stats.pearsonr(both["snmf_encoding"], both["raw_encoding"])
-    rho, _ = stats.spearmanr(both["snmf_encoding"], both["raw_encoding"])
+    r, p = stats.pearsonr(both["srf_encoding"], both["raw_encoding"])
+    rho, _ = stats.spearmanr(both["srf_encoding"], both["raw_encoding"])
 
-    both["rank_snmf"] = both["snmf_encoding"].rank(ascending=False).astype(int)
+    both["rank_srf"] = both["srf_encoding"].rank(ascending=False).astype(int)
     both["rank_raw"] = both["raw_encoding"].rank(ascending=False).astype(int)
-    both["rank_diff"] = (both["rank_snmf"] - both["rank_raw"]).abs()
+    both["rank_diff"] = (both["rank_srf"] - both["rank_raw"]).abs()
 
-    log.info(f"  SNMF vs Raw encoding (n={len(both)}): r={r:.3f}, rho={rho:.3f}")
+    log.info(f"  SRF vs Raw encoding (n={len(both)}): r={r:.3f}, rho={rho:.3f}")
     log.info(f"  Rank difference: mean={both['rank_diff'].mean():.1f}, median={both['rank_diff'].median():.0f}, max={both['rank_diff'].max()}")
     top_movers = both.nlargest(5, "rank_diff")
     for _, row in top_movers.iterrows():
-        log.info(f"    {row['model']}: SNMF rank {row['rank_snmf']} -> Raw rank {row['rank_raw']} (delta={row['rank_diff']})")
+        log.info(f"    {row['model']}: SRF rank {row['rank_srf']} -> Raw rank {row['rank_raw']} (delta={row['rank_diff']})")
 
     fig, ax = create_figure("square")
     ax.scatter(
-        both["snmf_encoding"], both["raw_encoding"],
+        both["srf_encoding"], both["raw_encoding"],
         s=20, alpha=0.5, color=INDIGO,
         edgecolors="white", linewidth=0.3,
     )
     lims = [
-        min(both["snmf_encoding"].min(), both["raw_encoding"].min()) - 0.02,
-        max(both["snmf_encoding"].max(), both["raw_encoding"].max()) + 0.02,
+        min(both["srf_encoding"].min(), both["raw_encoding"].min()) - 0.02,
+        max(both["srf_encoding"].max(), both["raw_encoding"].max()) + 0.02,
     ]
     ax.plot(lims, lims, ls="--", color=GRAY_LIGHT, lw=0.8, zorder=0)
     ax.set_xlim(lims)
     ax.set_ylim(lims)
-    ax.set_xlabel("SNMF embedding encoding (mean r)")
+    ax.set_xlabel("SRF embedding encoding (mean r)")
     ax.set_ylabel("Raw feature encoding (mean r)")
     ax.text(
         0.05, 0.95, f"r = {r:.3f}, rho = {rho:.3f}\nn = {len(both)}",
         transform=ax.transAxes, va="top", fontsize=7,
     )
-    save_figure(fig, output_dir / f"snmf_vs_raw_encoding_{monkey}")
-    log.info(f"Saved snmf_vs_raw_encoding_{monkey}")
+    save_figure(fig, output_dir / f"srf_vs_raw_encoding_{monkey}")
+    log.info(f"Saved srf_vs_raw_encoding_{monkey}")
 
-    both.to_csv(output_dir / f"snmf_vs_raw_ranking_{monkey}.csv", index=False)
-    log.info(f"Saved snmf_vs_raw_ranking_{monkey}.csv")
+    both.to_csv(output_dir / f"srf_vs_raw_ranking_{monkey}.csv", index=False)
+    log.info(f"Saved srf_vs_raw_ranking_{monkey}.csv")
 
     fig, ax = create_figure("square")
     ax.scatter(
-        both["rank_snmf"], both["rank_raw"],
+        both["rank_srf"], both["rank_raw"],
         s=20, alpha=0.5, color=INDIGO,
         edgecolors="white", linewidth=0.3,
     )
@@ -447,14 +447,14 @@ def plot_raw_vs_snmf(
     ax.set_ylim(0, n + 1)
     ax.invert_xaxis()
     ax.invert_yaxis()
-    ax.set_xlabel("SNMF embedding rank")
+    ax.set_xlabel("SRF embedding rank")
     ax.set_ylabel("Raw feature rank")
     ax.text(
         0.05, 0.95, f"rho = {rho:.3f}\nn = {n}",
         transform=ax.transAxes, va="top", fontsize=7,
     )
-    save_figure(fig, output_dir / f"snmf_vs_raw_rank_{monkey}")
-    log.info(f"Saved snmf_vs_raw_rank_{monkey}")
+    save_figure(fig, output_dir / f"srf_vs_raw_rank_{monkey}")
+    log.info(f"Saved srf_vs_raw_rank_{monkey}")
 
 
 def main() -> None:
@@ -470,16 +470,16 @@ def main() -> None:
     all_analysis_rows = []
 
     for monkey in ["F", "N"]:
-        snmf_csv = out / f"encoding_results_{monkey}.csv"
+        srf_csv = out / f"encoding_results_{monkey}.csv"
         raw_csv = out / f"raw_encoding_results_{monkey}.csv"
 
-        log.info(f"\nMonkey {monkey}: SNMF encoding")
-        df_snmf = run_snmf_encoding(
+        log.info(f"\nMonkey {monkey}: SRF encoding")
+        df_srf = run_srf_encoding(
             dataset, monkey, rank, N_FOLDS, cfg.n_jobs, cfg.seed, data_root,
         )
-        df_snmf = merge_metadata(df_snmf, data_root, cfg.dataset, rank)
-        df_snmf.to_csv(snmf_csv, index=False)
-        log.info(f"Saved {snmf_csv} ({len(df_snmf)} models)")
+        df_srf = merge_metadata(df_srf, data_root, cfg.dataset, rank)
+        df_srf.to_csv(srf_csv, index=False)
+        log.info(f"Saved {srf_csv} ({len(df_srf)} models)")
 
         log.info(f"\nMonkey {monkey}: Raw feature encoding")
         df_raw = run_raw_encoding(
@@ -489,16 +489,16 @@ def main() -> None:
         df_raw.to_csv(raw_csv, index=False)
         log.info(f"Saved {raw_csv} ({len(df_raw)} models)")
 
-        log.info(f"\nMonkey {monkey} SNMF: mean_r range [{df_snmf['mean_r'].min():.3f}, {df_snmf['mean_r'].max():.3f}]")
-        all_analysis_rows.append(analyze_accuracy(df_snmf, monkey, "snmf"))
+        log.info(f"\nMonkey {monkey} SRF: mean_r range [{df_srf['mean_r'].min():.3f}, {df_srf['mean_r'].max():.3f}]")
+        all_analysis_rows.append(analyze_accuracy(df_srf, monkey, "srf"))
 
-        plot_universality_vs_encoding(df_snmf, monkey, out)
-        plot_model_ranking(df_snmf, monkey, out)
+        plot_universality_vs_encoding(df_srf, monkey, out)
+        plot_model_ranking(df_srf, monkey, out)
 
         log.info(f"Monkey {monkey} Raw: mean_r range [{df_raw['mean_r'].min():.3f}, {df_raw['mean_r'].max():.3f}]")
         all_analysis_rows.append(analyze_accuracy(df_raw, monkey, "raw"))
 
-        plot_raw_vs_snmf(df_raw, df_snmf, monkey, out)
+        plot_raw_vs_srf(df_raw, df_srf, monkey, out)
 
     if all_analysis_rows:
         combined = pd.concat(all_analysis_rows, ignore_index=True)

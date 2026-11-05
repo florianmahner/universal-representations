@@ -234,8 +234,8 @@ def write_report(per_model: pd.DataFrame, stats: dict[str, object], out: Path) -
 
     provenance_path = out / "meta" / "provenance.json"
     provenance = json.loads(provenance_path.read_text()) if provenance_path.exists() else {}
-    snmf = provenance.get("snmf_runtime", {})
-    snmf_version = str(snmf.get("version") or "unknown")
+    srf = provenance.get("srf_runtime", {})
+    srf_version = str(srf.get("version") or "unknown")
     report = f"""# IPCL dataset-domain control
 
 ## Result
@@ -275,7 +275,7 @@ Across the fixed reference panel, the mean of model means is
 - Factorization: rank 50, model-specific median-distance RBF bandwidth, the
   full eight-multiplier grid, five seeds, and harmonic-mean selection from
   stability and explained variance.
-- Factorizer runtime: bundled SNMF {snmf_version}; source and solver hashes
+- Factorizer runtime: bundled SRF {srf_version}; source and solver hashes
   are saved in `meta/provenance.json`.
 - Universality: squared cosine with one-to-one Hungarian matching and the
   paper's row-permutation null correction (1,000 permutations by default).

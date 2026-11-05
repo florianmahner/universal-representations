@@ -81,21 +81,21 @@ def collect_accuracy_vs_encoding() -> list[dict]:
     return rows
 
 
-def collect_snmf_vs_raw_ranking() -> list[dict]:
-    """Spearman correlation of SNMF vs raw encoding rankings per monkey."""
+def collect_srf_vs_raw_ranking() -> list[dict]:
+    """Spearman correlation of SRF vs raw encoding rankings per monkey."""
     encoding_dir = Path(
         "experiments/universality/downstream_predictions/macaque_encoding/encoding_things/outputs"
     )
     rows = []
     for monkey in ("F", "N"):
-        path = encoding_dir / f"snmf_vs_raw_ranking_{monkey}.csv"
+        path = encoding_dir / f"srf_vs_raw_ranking_{monkey}.csv"
         if not path.exists():
             continue
         df = pd.read_csv(path)
-        sr, sp = sp_stats.spearmanr(df["rank_snmf"], df["rank_raw"])
+        sr, sp = sp_stats.spearmanr(df["rank_srf"], df["rank_raw"])
         rows.append({
             "section": "validation",
-            "statistic": f"snmf_vs_raw_ranking_{monkey}",
+            "statistic": f"srf_vs_raw_ranking_{monkey}",
             "n": len(df),
             "spearman_rho": sr, "spearman_p": sp,
         })
@@ -322,7 +322,7 @@ def main() -> None:
     collectors = [
         ("Encoding correlations (overall)", collect_encoding_correlations),
         ("Accuracy vs encoding", collect_accuracy_vs_encoding),
-        ("SNMF vs raw ranking", collect_snmf_vs_raw_ranking),
+        ("SRF vs raw ranking", collect_srf_vs_raw_ranking),
         ("Within-contrast correlations", lambda: collect_within_contrast_correlations(rank)),
         ("Contrast effect sizes", collect_effect_sizes),
         ("CLIP ViT-L/14 convergence", collect_clip_vit_convergence),

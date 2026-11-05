@@ -25,9 +25,9 @@ def fit_one_sigma(name: str, feat_path: Path, embeddings_dir: Path, sigma_mult: 
                   sigma0: float, seeds: list[int], rank: int, max_outer: int,
                   max_inner: int, tol: float) -> list[dict]:
     """Build the kernel once for this sigma, fit all seeds, return selection metrics."""
-    from src.factorization import get_snmf_class
+    from src.factorization import get_srf_class
 
-    SNMF = get_snmf_class()
+    SRF = get_srf_class()
 
     sigma = sigma0 * float(sigma_mult)
     feats = np.load(feat_path).astype(np.float64)
@@ -45,7 +45,7 @@ def fit_one_sigma(name: str, feat_path: Path, embeddings_dir: Path, sigma_mult: 
             ws[seed] = np.load(wpath)["w"]
             evars.append(explained_variance(S, ws[seed]))
             continue
-        est = SNMF(rank=rank, max_outer=max_outer, max_inner=max_inner, tol=tol,
+        est = SRF(rank=rank, max_outer=max_outer, max_inner=max_inner, tol=tol,
                    init="random_sqrt", random_state=seed)
         est.fit(S)
         out_dir.mkdir(parents=True, exist_ok=True)

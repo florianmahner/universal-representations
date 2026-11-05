@@ -9,7 +9,7 @@ from pathlib import Path
 import numpy as np
 from omegaconf import DictConfig, OmegaConf
 
-from src.factorization import get_snmf_class
+from src.factorization import get_srf_class
 from src.metrics import explained_variance, median_sigma_heuristic
 
 LOG = logging.getLogger(__name__)
@@ -82,7 +82,7 @@ def fit_model(cfg: DictConfig, feature_path: Path, model: str) -> None:
     output_base = Path(cfg.data_root) / "embeddings" / cfg.dataset / model / f"rank_{rank}"
     relative_feature_path = feature_path.as_posix()
 
-    SNMF = get_snmf_class()
+    SRF = get_srf_class()
 
     for sigma_token in map(str, cfg.factorization.sigma_grid):
         sigma = median_sigma * float(sigma_token)
@@ -106,7 +106,7 @@ def fit_model(cfg: DictConfig, feature_path: Path, model: str) -> None:
             if SKIP_EXISTING and w_path.exists() and metrics_path.exists():
                 continue
 
-            estimator = SNMF(
+            estimator = SRF(
                 rank=rank,
                 max_outer=cfg.factorization.max_outer,
                 max_inner=cfg.factorization.max_inner,

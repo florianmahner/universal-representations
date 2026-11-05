@@ -445,7 +445,7 @@ def compute_scores(
 
 
 def load_ratings(data_root: Path) -> pd.DataFrame:
-    df = pd.read_csv(data_root / "ratings" / "dim_ratings_aggregated_qc_attn_catch.csv")
+    df = pd.read_csv(data_root / "ratings" / "dimension_ratings.csv")
     parts = df["dim_id"].str.rsplit("__d", n=1, expand=True)
     df["model"] = parts[0]
     df["dimension"] = parts[1].astype(int)

@@ -17,7 +17,7 @@ from omegaconf import DictConfig, OmegaConf
 from experiments.rebuttal.universality_across_layers.factorization.factorize import rbf_frugal
 from experiments.universality.metric.compute.run import compute_universality_for_model
 from experiments.universality.shared import load_components_for_rank
-from src.factorization import get_snmf_class
+from src.factorization import get_srf_class
 from src.metrics import explained_variance, median_sigma_heuristic
 from src.stability import factorization_stability, reference_seed_index
 
@@ -42,7 +42,7 @@ def fit_unit(
     cfg: DictConfig, name: str, feat_path: Path, sigma_mult: str, emb_dir: Path
 ) -> dict:
     """One (model, sigma) unit: one kernel, all seed fits, one selection row."""
-    SNMF = get_snmf_class()
+    SRF = get_srf_class()
     rank = cfg.factorization.rank
 
     feats = np.load(feat_path).astype(np.float64)
@@ -59,7 +59,7 @@ def fit_unit(
         if w_path.exists():
             w = np.load(w_path)["w"]
         else:
-            est = SNMF(
+            est = SRF(
                 rank=rank,
                 max_outer=cfg.factorization.max_outer,
                 max_inner=cfg.factorization.max_inner,

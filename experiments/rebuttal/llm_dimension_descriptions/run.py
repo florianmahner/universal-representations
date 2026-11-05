@@ -1354,7 +1354,7 @@ def main() -> None:
     )
     dimensions = attach_universality(
         load_dimensions(
-            Path(cfg.data_root) / "ratings" / "dim_ratings_aggregated_qc_attn_catch.csv"
+            Path(cfg.data_root) / "ratings" / "dimension_ratings.csv"
         ),
         universality,
     )

@@ -173,9 +173,9 @@ def fit_model_sigma(
         logger.info("%s sigma=%s: all %d seeds cached", model, sigma_mult, len(seeds))
         return [cached_rows[seed] for seed in seeds]
 
-    from src.factorization import get_snmf_class
+    from src.factorization import get_srf_class
 
-    SNMF = get_snmf_class()
+    SRF = get_srf_class()
 
     features = np.asarray(np.load(feature_path), dtype=np.float64)
     if not np.isfinite(features).all():
@@ -201,8 +201,8 @@ def fit_model_sigma(
 
         # An orphan W has no trustworthy record of its feature/kernel identity,
         # so it is refit rather than silently adopted.
-        logger.info("%s sigma=%s seed=%d: fitting SNMF", model, sigma_mult, seed)
-        estimator = SNMF(
+        logger.info("%s sigma=%s seed=%d: fitting SRF", model, sigma_mult, seed)
+        estimator = SRF(
             rank=rank,
             max_outer=max_outer,
             max_inner=max_inner,

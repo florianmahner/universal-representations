@@ -1,7 +1,7 @@
 from src import factorization
 
 
-def test_get_snmf_class_returns_the_vendored_estimator():
-    import snmf
+def test_get_srf_class_returns_the_upstream_estimator():
+    import pysrf
 
-    assert factorization.get_snmf_class() is snmf.SNMF
+    assert factorization.get_srf_class() is pysrf.SRF

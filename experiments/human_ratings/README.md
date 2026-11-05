@@ -16,4 +16,4 @@ python -m experiments.human_ratings.parse_assignments # needs data/ratings/assig
 python -m experiments.human_ratings.run               # QC, reliability, Fig. 2b
 ```
 
-Requires from `experiments/universality/`: the clustering linkage (`dimensions/clustering/outputs/linkage.npy`) and universality scores (`shared/data/universality_things22k_rank_50.csv`). The raw participant exports (`data/ratings/assignments_*.csv`) are not shipped; the anonymized aggregate they produce is included at `data/ratings/dim_ratings_aggregated_qc_attn_catch.csv`.
+Requires from `experiments/universality/`: the clustering linkage (`dimensions/clustering/outputs/linkage.npy`) and universality scores (`shared/data/universality_things22k_rank_50.csv`). The raw participant exports (`data/ratings/assignments_*.csv`) are not shipped; the anonymized aggregate they produce is included at `data/ratings/dimension_ratings.csv`.

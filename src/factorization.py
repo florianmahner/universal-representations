@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 
-def get_snmf_class():
-    from snmf import SNMF
+def get_srf_class():
+    from pysrf import SRF
 
-    return SNMF
+    return SRF

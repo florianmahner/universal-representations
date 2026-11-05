@@ -388,7 +388,7 @@ def main() -> None:
         )
 
     aggregate_path = (
-        Path(cfg.data_root) / "ratings" / "dim_ratings_aggregated_qc_attn_catch.csv"
+        Path(cfg.data_root) / "ratings" / "dimension_ratings.csv"
     )
     aggregate_path.parent.mkdir(parents=True, exist_ok=True)
     # Keep the durable human-data artifact independent of factor selection.
