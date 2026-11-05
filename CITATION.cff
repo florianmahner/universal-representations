@@ -9,6 +9,8 @@ url: "https://arxiv.org/abs/2605.13675"
 authors:
   - family-names: Mahner
     given-names: Florian P.
+  - family-names: Roth
+    given-names: Johannes
 preferred-citation:
   type: conference-paper
   title: Characterizing Universal Object Representations Across Vision Models
