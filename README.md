@@ -1,12 +1,12 @@
-<img src="assets/logo.png" alt="Universal representations" width="300" align="right">
+<h3>Characterizing Universal Object Representations Across Vision Models</h3>
 
-# Universal representations
+<img src="assets/logo.png" alt="Universal representations" width="180" align="right">
 
 [![NeurIPS 2026](https://img.shields.io/badge/NeurIPS-2026-7C3AED?style=flat&labelColor=30343B)](https://arxiv.org/abs/2605.13675)
 [![Paper](https://img.shields.io/badge/arXiv-2605.13675-EA4C5A?style=flat&labelColor=30343B)](https://arxiv.org/abs/2605.13675)
 [![SRF · pysrf](https://img.shields.io/badge/SRF-pysrf-009E91?style=flat&labelColor=30343B)](https://github.com/florianmahner/pysrf)
 
-Code for [Characterizing Universal Object Representations Across Vision Models](https://arxiv.org/abs/2605.13675), accepted at NeurIPS 2026. We extract nonnegative dimensions from 162 vision models and measure how consistently they recur across models.
+Code for our [NeurIPS 2026 paper](https://arxiv.org/abs/2605.13675). We extract non-negative dimensions from 162 vision models and measure how consistently they recur across models.
 
 ## Citation
 
