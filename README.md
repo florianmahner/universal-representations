@@ -1,3 +1,5 @@
+<img src="assets/logo.gif" alt="Universal representations" width="200" align="right">
+
 # Universal representations
 
 Official code for [Characterizing Universal Object Representations Across Vision Models](https://openreview.net/forum?id=16SGONh3Vl), accepted at **NeurIPS 2026**.
