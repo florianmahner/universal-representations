@@ -1,12 +1,36 @@
-<img src="assets/logo.png" alt="Universal representations" width="200" align="right">
+<p align="center">
+  <img src="assets/logo.png" alt="Universal representations" width="220">
+</p>
 
-# Universal representations
+<h1 align="center">Universal representations</h1>
 
-Code for the NeurIPS 2026 paper [Characterizing Universal Object Representations Across Vision Models](https://arxiv.org/abs/2605.13675). The analyses compare dimensions of object representations across 162 vision models.
+<p align="center">
+  <a href="https://arxiv.org/abs/2605.13675"><img src="https://img.shields.io/badge/NeurIPS-2026-6868A2" alt="NeurIPS 2026"></a>
+  <a href="https://arxiv.org/abs/2605.13675"><img src="https://img.shields.io/badge/arXiv-2605.13675-b31b1b" alt="Paper"></a>
+  <a href="https://github.com/florianmahner/pysrf"><img src="https://img.shields.io/badge/SRF-pysrf-398F8C" alt="SRF · pysrf"></a>
+</p>
+
+Code for [Characterizing Universal Object Representations Across Vision Models](https://arxiv.org/abs/2605.13675), accepted at NeurIPS 2026. We extract nonnegative dimensions from 162 vision models and measure how consistently they recur across models.
+
+## Citation
+
+Please cite our paper if you use this code. Citation metadata are in [CITATION.cff](CITATION.cff), also available through **Cite this repository** on GitHub.
+
+## Built on SRF
+
+The factorization is provided by **[pysrf](https://github.com/florianmahner/pysrf)**, our library for **Similarity-based Representation Factorization**. Use it directly to extract nonnegative dimensions from your own similarity matrices:
+
+```python
+from pysrf import SRF
+
+weights = SRF(rank=50, random_state=42).fit_transform(similarity)
+```
+
+Here, `similarity` is a symmetric, nonnegative similarity matrix. The fitting settings used in this paper are in [`config.yaml`](config.yaml).
 
 ## Installation
 
-Python 3.10+ and a C compiler are required. Factorization uses [SRF (pysrf)](https://github.com/florianmahner/pysrf), installed directly from GitHub at a fixed commit.
+Python 3.10+ and a C compiler are required. Installation includes `pysrf` from a fixed GitHub commit.
 
 ```bash
 git clone https://github.com/florianmahner/universal-representations.git
@@ -18,25 +42,6 @@ pytest -q
 ```
 
 The tests run on synthetic data. Install `.[features]` for feature extraction, `.[analysis]` for semantic-label and AligNet analyses, or `.[reports]` for cluster reports. CLIP and Detectron2 require separate installation.
-
-## Data
-
-Model and image metadata are in [`data/meta`](data/meta/). Aggregated human ratings are in [`dimension_ratings.csv`](data/ratings/dimension_ratings.csv). Images, features, model weights, embeddings, neural recordings, behavioral triplets, and participant-level ratings are stored separately.
-
-Set `data_root` in [`config.yaml`](config.yaml). The expected layout is:
-
-```text
-data/
-├── images/things/<category>/<image>
-├── features/{things22k,objectnet}/<model>.npy
-├── features/macaque/22k/processed/{F,N}.npy
-├── embeddings/<dataset>/<model>/rank_<k>/sigma_<m>/seed_<s>/w.npz
-├── behavior/things_triplets/
-├── ratings/
-└── meta/
-```
-
-Feature and embedding rows follow the image metadata CSV for each dataset.
 
 ## Usage
 
@@ -60,9 +65,24 @@ Instructions for each analysis:
 - [Controls and additional analyses](experiments/rebuttal/)
 - [Human dimension ratings](experiments/human_ratings/)
 
-## Citation
+## Data
 
-Please cite the paper if you use this code. See [CITATION.cff](CITATION.cff) or **Cite this repository** on GitHub.
+Model and image metadata are in [`data/meta`](data/meta/). Aggregated human ratings are in [`dimension_ratings.csv`](data/ratings/dimension_ratings.csv). Images, features, model weights, embeddings, neural recordings, behavioral triplets, and participant-level ratings are stored separately.
+
+Set `data_root` in [`config.yaml`](config.yaml). The expected layout is:
+
+```text
+data/
+├── images/things/<category>/<image>
+├── features/{things22k,objectnet}/<model>.npy
+├── features/macaque/22k/processed/{F,N}.npy
+├── embeddings/<dataset>/<model>/rank_<k>/sigma_<m>/seed_<s>/w.npz
+├── behavior/things_triplets/
+├── ratings/
+└── meta/
+```
+
+Feature and embedding rows follow the image metadata CSV for each dataset.
 
 ## License
 
