@@ -1,13 +1,13 @@
+<img src="assets/logo.png" alt="Universal representations" width="180" align="right">
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/title-dark.svg">
-  <img src="assets/title-light.svg" alt="Characterizing Universal Object Representations Across Vision Models" width="900">
+  <img src="assets/title-light.svg" alt="Characterizing universal object representations across vision models" width="75%">
 </picture>
-
-<img src="assets/logo.png" alt="Universal representations" width="240" align="right">
 
 [![NeurIPS 2026](https://img.shields.io/badge/NeurIPS-2026-7C3AED?style=flat&labelColor=30343B)](https://arxiv.org/abs/2605.13675)
 [![Paper](https://img.shields.io/badge/arXiv-2605.13675-EA4C5A?style=flat&labelColor=30343B)](https://arxiv.org/abs/2605.13675)
-[![Similarity-based Representation Factorization · pysrf](https://img.shields.io/badge/Similarity--based_Representation_Factorization-pysrf-009E91?style=flat&labelColor=30343B)](https://github.com/florianmahner/pysrf)
+[![Similarity-based representation factorization · pysrf](https://img.shields.io/badge/Similarity--based_representation_factorization-pysrf-009E91?style=flat&labelColor=30343B)](https://github.com/florianmahner/pysrf)
 
 Code for our [NeurIPS 2026 paper](https://arxiv.org/abs/2605.13675). We extract non-negative dimensions from 162 vision models and measure how consistently they recur across models.
 
@@ -17,7 +17,7 @@ Please cite our paper if you use this code. Citation metadata are in [CITATION.c
 
 ### Getting non-negative embeddings
 
-The factorization is provided by **[pysrf](https://github.com/florianmahner/pysrf)**, our library for **Similarity-based Representation Factorization**. Use it directly to extract nonnegative dimensions from your own similarity matrices:
+The factorization is provided by **[pysrf](https://github.com/florianmahner/pysrf)**, our library for **Similarity-based representation factorization**. Use it directly to extract nonnegative dimensions from your own similarity matrices:
 
 ```python
 from pysrf import SRF
