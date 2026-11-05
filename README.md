@@ -1,4 +1,4 @@
-<h3>Characterizing Universal Object Representations Across Vision Models</h3>
+# Characterizing Universal Object Representations Across Vision Models
 
 <img src="assets/logo.png" alt="Universal representations" width="180" align="right">
 
