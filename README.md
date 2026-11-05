@@ -1,10 +1,10 @@
-<img src="assets/logo.png" alt="Universal representations" width="200" align="right">
+<img src="assets/logo.png" alt="Universal representations" width="300" align="right">
 
 # Universal representations
 
-[![NeurIPS 2026](https://img.shields.io/badge/NeurIPS-2026-666699?style=flat&labelColor=454550)](https://arxiv.org/abs/2605.13675)
-[![Paper](https://img.shields.io/badge/arXiv-2605.13675-AA6677?style=flat&labelColor=454550)](https://arxiv.org/abs/2605.13675)
-[![SRF · pysrf](https://img.shields.io/badge/SRF-pysrf-447777?style=flat&labelColor=454550)](https://github.com/florianmahner/pysrf)
+[![NeurIPS 2026](https://img.shields.io/badge/NeurIPS-2026-7C3AED?style=flat&labelColor=30343B)](https://arxiv.org/abs/2605.13675)
+[![Paper](https://img.shields.io/badge/arXiv-2605.13675-EA4C5A?style=flat&labelColor=30343B)](https://arxiv.org/abs/2605.13675)
+[![SRF · pysrf](https://img.shields.io/badge/SRF-pysrf-009E91?style=flat&labelColor=30343B)](https://github.com/florianmahner/pysrf)
 
 Code for [Characterizing Universal Object Representations Across Vision Models](https://arxiv.org/abs/2605.13675), accepted at NeurIPS 2026. We extract nonnegative dimensions from 162 vision models and measure how consistently they recur across models.
 
@@ -69,7 +69,7 @@ Set `data_root` in [`config.yaml`](config.yaml). The expected layout is:
 
 ```text
 data/
-├── images/things/<category>/<image>
+├── images/<dataset>/<category>/<image>
 ├── features/{things22k,objectnet}/<model>.npy
 ├── features/macaque/22k/processed/{F,N}.npy
 ├── embeddings/<dataset>/<model>/rank_<k>/sigma_<m>/seed_<s>/w.npz
