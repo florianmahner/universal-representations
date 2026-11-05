@@ -1,18 +1,21 @@
-# Characterizing Universal Object Representations Across Vision Models
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/title-dark.svg">
+  <img src="assets/title-light.svg" alt="Characterizing Universal Object Representations Across Vision Models" width="900">
+</picture>
 
-<img src="assets/logo.png" alt="Universal representations" width="180" align="right">
+<img src="assets/logo.png" alt="Universal representations" width="240" align="right">
 
 [![NeurIPS 2026](https://img.shields.io/badge/NeurIPS-2026-7C3AED?style=flat&labelColor=30343B)](https://arxiv.org/abs/2605.13675)
 [![Paper](https://img.shields.io/badge/arXiv-2605.13675-EA4C5A?style=flat&labelColor=30343B)](https://arxiv.org/abs/2605.13675)
-[![SRF · pysrf](https://img.shields.io/badge/SRF-pysrf-009E91?style=flat&labelColor=30343B)](https://github.com/florianmahner/pysrf)
+[![Similarity-based Representation Factorization · pysrf](https://img.shields.io/badge/Similarity--based_Representation_Factorization-pysrf-009E91?style=flat&labelColor=30343B)](https://github.com/florianmahner/pysrf)
 
 Code for our [NeurIPS 2026 paper](https://arxiv.org/abs/2605.13675). We extract non-negative dimensions from 162 vision models and measure how consistently they recur across models.
 
-## Citation
+### Citation
 
 Please cite our paper if you use this code. Citation metadata are in [CITATION.cff](CITATION.cff), also available through **Cite this repository** on GitHub.
 
-## Getting non-negative embeddings
+### Getting non-negative embeddings
 
 The factorization is provided by **[pysrf](https://github.com/florianmahner/pysrf)**, our library for **Similarity-based Representation Factorization**. Use it directly to extract nonnegative dimensions from your own similarity matrices:
 
@@ -24,22 +27,22 @@ weights = SRF(rank=50, random_state=42).fit_transform(similarity)
 
 Here, `similarity` is a symmetric, nonnegative similarity matrix. The fitting settings used in this paper are in [`config.yaml`](config.yaml).
 
-## Installation
+### Installation
 
 Python 3.10+ and a C compiler are required. Installation includes `pysrf` from a fixed GitHub commit.
 
 ```bash
 git clone https://github.com/florianmahner/universal-representations.git
 cd universal-representations
-python -m venv .venv
+make install
 source .venv/bin/activate
-pip install -e ".[test]"
-pytest -q
 ```
 
-The tests run on synthetic data. Install `.[features]` for feature extraction, `.[analysis]` for semantic-label and AligNet analyses, or `.[reports]` for cluster reports. CLIP and Detectron2 require separate installation.
+`make install` creates `.venv` and installs the dependencies. Run `make check` to test the installation with synthetic data.
 
-## Usage
+For feature extraction, use `make install EXTRAS=test,features`. Other extras are `analysis` (semantic-label and AligNet analyses) and `reports` (cluster reports). CLIP and Detectron2 require separate installation.
+
+### Usage
 
 Fit embeddings for a model from its extracted features:
 
@@ -61,25 +64,26 @@ Instructions for each analysis:
 - [Controls and additional analyses](experiments/rebuttal/)
 - [Human dimension ratings](experiments/human_ratings/)
 
-## Data
+### Data
 
-Model and image metadata are in [`data/meta`](data/meta/). Aggregated human ratings are in [`dimension_ratings.csv`](data/ratings/dimension_ratings.csv). Images, features, model weights, embeddings, neural recordings, behavioral triplets, and participant-level ratings are stored separately.
+The [Zenodo release](https://zenodo.org/records/23979573) contains the selected rank-50 embeddings for all 162 models: **THINGS (1.05 GB)** and **ObjectNet (2.33 GB)**, with image-order metadata and the selected bandwidths and seeds.
 
-Set `data_root` in [`config.yaml`](config.yaml). The expected layout is:
+Released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). DOI: [10.5281/zenodo.23979573](https://doi.org/10.5281/zenodo.23979573).
 
-```text
-data/
-├── images/<dataset>/<category>/<image>
-├── features/{things22k,objectnet}/<model>.npy
-├── features/macaque/22k/processed/{F,N}.npy
-├── embeddings/<dataset>/<model>/rank_<k>/sigma_<m>/seed_<s>/w.npz
-├── behavior/things_triplets/
-├── ratings/
-└── meta/
+Download either or both archives and extract them from the repository root:
+
+```bash
+curl -fL https://zenodo.org/records/23979573/files/things22k-rank50.zip -o things22k-rank50.zip
+unzip -n things22k-rank50.zip
+
+curl -fL https://zenodo.org/records/23979573/files/objectnet-rank50.zip -o objectnet-rank50.zip
+unzip -n objectnet-rank50.zip
 ```
 
-Feature and embedding rows follow the image metadata CSV for each dataset.
+The archives create `data/embeddings/<dataset>/` and include the corresponding metadata under `data/meta/<dataset>/`. Each `w.npz` contains an image-by-50 array named `w`; its rows follow the image metadata CSV. The original precision is preserved.
 
-## License
+Aggregated human ratings are included in [`dimension_ratings.csv`](data/ratings/dimension_ratings.csv). Images, extracted features, neural recordings, and behavioral triplets are separate inputs required only for the analyses that use them. Set `data_root` in [`config.yaml`](config.yaml) if you store data elsewhere.
+
+### License
 
 [BSD-3-Clause](LICENSE). See [third-party notices](THIRD_PARTY.md).

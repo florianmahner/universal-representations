@@ -1,25 +1,36 @@
-# Universality
+### Universality
 
-Compute scores from the model embeddings before running downstream analyses:
+Measure how consistently dimensions recur across models, then relate these scores to model properties, dimension content, and biological alignment.
+
+#### Compute scores
+
+Run from the repository root after fitting the model embeddings:
 
 ```bash
 python -m experiments.universality.metric.compute.run
 ```
 
-| Directory | Analysis |
-|---|---|
-| [metric/validate](metric/validate/) | Null calibration, stability, rank and model-set sensitivity, ObjectNet, CKA, and ridge comparisons |
-| [controlled_comparisons](controlled_comparisons/) | Architecture, objective, training data, model size, and accuracy |
-| [dimensions](dimensions/) | Category consistency, sparsity, reconstruction importance, and clustering |
-| [downstream_predictions/macaque_encoding](downstream_predictions/macaque_encoding/) | Macaque IT encoding |
-| [downstream_predictions/things_behavior](downstream_predictions/things_behavior/) | Human odd-one-out judgments |
-| [downstream_predictions/comparison](downstream_predictions/comparison/) | Neural and behavioral results across model groups |
-| [paper_statistics](paper_statistics/) | Summary statistics for the paper |
+#### Validate the measure
 
-Run modules from the repository root, for example:
+[`metric/validate`](metric/validate/) contains null calibration, within-model stability, rank and model-set sensitivity, and comparisons with ObjectNet, CKA, and ridge prediction. Each analysis has its own `run.py` or `plot.py`.
+
+#### Model properties and dimension content
+
+[`controlled_comparisons`](controlled_comparisons/) tests architecture, objective, training data, model size, and accuracy:
 
 ```bash
 python -m experiments.universality.controlled_comparisons.run
 ```
 
-For downstream predictions, run `macaque_encoding.encoding_things.run` and `things_behavior.triplets.run` before their `dimension_prediction` analyses. Run `paper_statistics.run` last. Neural and behavioral analyses require the corresponding recordings and triplets; see the [data layout](../../README.md#data).
+[`dimensions`](dimensions/) contains category consistency, sparsity, reconstruction importance, and clustering analyses.
+
+#### Neural and behavioral prediction
+
+Start with [`macaque_encoding`](downstream_predictions/macaque_encoding/) and [`things_behavior`](downstream_predictions/things_behavior/):
+
+```bash
+python -m experiments.universality.downstream_predictions.macaque_encoding.encoding_things.run
+python -m experiments.universality.downstream_predictions.things_behavior.triplets.run
+```
+
+These require the recordings and triplets described in the [data layout](../../README.md#data). Run their `dimension_prediction` analyses afterward, followed by [`comparison`](downstream_predictions/comparison/). [`paper_statistics`](paper_statistics/) collects the results once the analyses are complete.
