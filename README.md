@@ -1,8 +1,15 @@
-<img src="assets/logo.png" alt="Universal representations" width="130" align="right">
+<p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/title-dark.svg">
+  <img src="assets/title-light.svg" alt="Characterizing universal object representations across vision models" width="900" align="top">
+</picture>
+  <img src="assets/logo.png" alt="Universal representations" width="200" align="right">
+</p>
 
-# Characterizing universal object representations across vision models
-
-Code for our [NeurIPS 2026 paper](https://arxiv.org/abs/2605.13675). We extract non-negative dimensions from 162 vision models and measure how consistently they recur across models.
+<p>
+  <br>
+  Code for our <a href="https://arxiv.org/abs/2605.13675">NeurIPS 2026 paper</a>. We extract non-negative dimensions from 162 vision models and measure how consistently they recur across models.
+</p>
 
 ### Citation
 
