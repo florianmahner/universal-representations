@@ -1,0 +1,15 @@
+# All configuration. Override any value on the command line, e.g.
+#   python -m experiments.factorization.fit.run_grid data_root=/scratch/things n_jobs=8
+data_root: data        # relative to the repository root, or absolute
+dataset: things22k
+models: []             # which models to process; empty means all
+n_jobs: -2
+seed: 42               # permutation-null and bootstrap seed
+
+factorization:
+  rank: 50
+  sigma_grid: ["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.8", "1.0"]
+  seeds: [0, 1, 2, 3, 4]
+  max_outer: 20
+  max_inner: 100
+  tol: 1.0e-4
